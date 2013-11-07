@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  estate_type: MyString
+  address: MyString
+
+two:
+  estate_type: MyString
+  address: MyString
