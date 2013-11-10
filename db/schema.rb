@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131106152857) do
+ActiveRecord::Schema.define(:version => 20131110021836) do
 
   create_table "pre_sales", :force => true do |t|
     t.string   "estate_town"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20131106152857) do
     t.decimal  "y_long",                 :precision => 15, :scale => 10
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
+    t.string   "search_address"
   end
 
   create_table "real_estates", :force => true do |t|
@@ -71,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20131106152857) do
     t.decimal  "y_long",                 :precision => 15, :scale => 10
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
+    t.string   "search_address"
   end
 
   create_table "rents", :force => true do |t|
@@ -102,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20131106152857) do
     t.decimal  "y_long",                 :precision => 15, :scale => 10
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
+    t.string   "search_address"
   end
 
 end

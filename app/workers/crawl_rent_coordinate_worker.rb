@@ -4,18 +4,11 @@ class CrawlRentCoordinateWorker
   sidekiq_options queue: "estate"
   
   def perform(estate_id)
-    estate = Rent.select("id, estate_town, address").find(estate_id)
-    address = estate.address
-    
-    # for some ground estate
-    address = address.gsub(/段.*小段/, '路')
-    address = address.gsub(/地號/, '號')
-    if (!address.index(estate.estate_town))
-      address = estate.estate_town + address
-    end
+    estate = Rent.select("id, search_address").find(estate_id)
+    search_address = estate.search_address
 
-    address = URI::encode(address)
-    json_object = JSON.parse(open("http://maps.googleapis.com/maps/api/geocode/json?address=#{address}&sensor=false&region=tw").read)
+    search_address = URI::encode(search_address)
+    json_object = JSON.parse(open("http://maps.googleapis.com/maps/api/geocode/json?address=#{search_address}&sensor=false&region=tw").read)
     estate.x_lat = json_object["results"][0]["geometry"]["location"]["lat"]
     estate.y_long =  json_object["results"][0]["geometry"]["location"]["lng"]
     estate.save
