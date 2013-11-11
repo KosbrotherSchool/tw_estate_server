@@ -13,6 +13,7 @@ namespace :parse_xml_data do
 	        Nodes.each do |estate|
 	            if(estate.children.size() != 0)
 	            	newEstate = RealEstate.new
+	            	newEstate.estate_group = 1
 	            	newEstate.estate_town = estate.children[1].children.to_s
 	            	newEstate.estate_type = estate.children[3].children.to_s
 
@@ -69,7 +70,8 @@ namespace :parse_xml_data do
 
 	        Nodes.each do |estate|
 	        	if(estate.children.size() != 0)
-	            	newEstate = PreSale.new
+	            	newEstate = RealEstate.new
+	            	newEstate.estate_group = 2
 	            	newEstate.estate_town = estate.children[1].children.to_s
 	            	newEstate.estate_type = estate.children[3].children.to_s
 	            	# newEstate.address = estate.children[5].children.to_s
@@ -128,9 +130,10 @@ namespace :parse_xml_data do
 
 	        Nodes.each do |rent|
 	        	if(rent.children.size() != 0)
-	        		newRent = Rent.new
+	        		newRent = RealEstate.new
+	        		newRent.estate_group = 3
 	        		newRent.estate_town 		 	= rent.children[1].children.to_s
-	            	newRent.rent_type			 	= rent.children[3].children.to_s
+	            	newRent.estate_type			 	= rent.children[3].children.to_s
 	            	# newRent.address 			 	= rent.children[5].children.to_s
 
 	            	address = rent.children[5].children.to_s
@@ -181,17 +184,17 @@ namespace :parse_xml_data do
         end
     end
 
-    task :crawl_presale_coordiate => :environment do
-        PreSale.all.each do |estate|
-            CrawlPresaleCoordinateWorker.perform_async(estate.id)
-        end
-    end
+    # task :crawl_presale_coordiate => :environment do
+    #     PreSale.all.each do |estate|
+    #         CrawlPresaleCoordinateWorker.perform_async(estate.id)
+    #     end
+    # end
 
-    task :crawl_rent_coordiate => :environment do
-        Rent.all.each do |estate|
-            CrawlRentCoordinateWorker.perform_async(estate.id)
-        end
-    end
+    # task :crawl_rent_coordiate => :environment do
+    #     Rent.all.each do |estate|
+    #         CrawlRentCoordinateWorker.perform_async(estate.id)
+    #     end
+    # end
 
     #  puts estate repeate address
     task :reset_repeat_address => :environment do
