@@ -213,35 +213,35 @@ namespace :parse_xml_data do
 			end
 		end
 
-		PreSale.select('id,search_address').all.each do |estate|
-	    	search_address = estate.search_address
-	    	repeat_estates = PreSale.where("search_address Like?", "#{search_address}")
-			if ( repeat_estates.size() > 1) 
-				puts "pre_sale id = " + estate.id.to_s + ", search_address = " + estate.search_address
-				snatch = search_address[/(\d*)號/]
-				current_num = snatch[/(\d*)/].to_i
-				repeat_estates.each do |item|
-					item.search_address = item.search_address.gsub(/(\d*)號/, current_num.to_s + "號")
-					current_num = current_num + 1
-					item.save
-				end
-			end
-		end
+		# PreSale.select('id,search_address').all.each do |estate|
+	 #    	search_address = estate.search_address
+	 #    	repeat_estates = PreSale.where("search_address Like?", "#{search_address}")
+		# 	if ( repeat_estates.size() > 1) 
+		# 		puts "pre_sale id = " + estate.id.to_s + ", search_address = " + estate.search_address
+		# 		snatch = search_address[/(\d*)號/]
+		# 		current_num = snatch[/(\d*)/].to_i
+		# 		repeat_estates.each do |item|
+		# 			item.search_address = item.search_address.gsub(/(\d*)號/, current_num.to_s + "號")
+		# 			current_num = current_num + 1
+		# 			item.save
+		# 		end
+		# 	end
+		# end
 
-		Rent.select('id,search_address').all.each do |estate|
-	    	search_address = estate.search_address
-	    	repeat_estates = Rent.where("search_address Like?", "#{search_address}")
-			if ( repeat_estates.size() > 1) 
-				puts "rent id = " + estate.id.to_s + ", search_address = " + estate.search_address
-				snatch = search_address[/(\d*)號/]
-				current_num = snatch[/(\d*)/].to_i
-				repeat_estates.each do |item|
-					item.search_address = item.search_address.gsub(/(\d*)號/, current_num.to_s + "號")
-					current_num = current_num + 1
-					item.save
-				end
-			end
-		end
+		# Rent.select('id,search_address').all.each do |estate|
+	 #    	search_address = estate.search_address
+	 #    	repeat_estates = Rent.where("search_address Like?", "#{search_address}")
+		# 	if ( repeat_estates.size() > 1) 
+		# 		puts "rent id = " + estate.id.to_s + ", search_address = " + estate.search_address
+		# 		snatch = search_address[/(\d*)號/]
+		# 		current_num = snatch[/(\d*)/].to_i
+		# 		repeat_estates.each do |item|
+		# 			item.search_address = item.search_address.gsub(/(\d*)號/, current_num.to_s + "號")
+		# 			current_num = current_num + 1
+		# 			item.save
+		# 		end
+		# 	end
+		# end
 
 	end
 
