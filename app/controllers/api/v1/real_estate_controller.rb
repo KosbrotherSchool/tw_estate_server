@@ -5,7 +5,7 @@ class Api::V1::RealEstateController < ApplicationController
   def around_all
   	x = params[:x].to_f
     y = params[:y].to_f
-    items = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{x}-x_lat) + ABS(#{y}-y_long)) ASC").paginate(:page => 1, :per_page => 75)
+    items = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{x}-x_lat) + ABS(#{y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
   	render :json => items
   end
 
