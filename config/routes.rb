@@ -6,6 +6,7 @@ TwEatateServer::Application.routes.draw do
     namespace :v1 do
       resources :real_estate, :only => [:index, :show] do
         collection do
+          get 'around_all_by_areas'
           get 'around_all'
           get 'estate_around'
           get 'presale_around'
