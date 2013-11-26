@@ -30,7 +30,7 @@ class Api::V1::RealEstateController < ApplicationController
     items6 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot6_x}-x_lat) + ABS(#{spot6_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
     items7 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot7_x}-x_lat) + ABS(#{spot7_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
     items8 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot8_x}-x_lat) + ABS(#{spot8_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
-    items_all = items0 + items1 + items2 + items3
+    items_all = items0 + items1 + items2 + items3 + items4 + items5 + items6 + items7 + items8
     render :json => items_all
   end
 
