@@ -11,10 +11,25 @@ class Api::V1::RealEstateController < ApplicationController
     spot2_y = params[:spot2_y].to_f
     spot3_x = params[:spot3_x].to_f
     spot3_y = params[:spot3_y].to_f
+    spot4_x = params[:spot4_x].to_f
+    spot4_y = params[:spot4_y].to_f
+    spot5_x = params[:spot5_x].to_f
+    spot5_y = params[:spot5_y].to_f
+    spot6_x = params[:spot6_x].to_f
+    spot6_y = params[:spot6_y].to_f
+    spot7_x = params[:spot7_x].to_f
+    spot7_y = params[:spot7_y].to_f
+    spot8_x = params[:spot8_x].to_f
+    spot8_y = params[:spot8_y].to_f
     items0 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{center_x}-x_lat) + ABS(#{cneter_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
     items1 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot1_x}-x_lat) + ABS(#{spot1_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
     items2 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot2_x}-x_lat) + ABS(#{spot2_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
     items3 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot3_x}-x_lat) + ABS(#{spot3_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items4 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot4_x}-x_lat) + ABS(#{spot4_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items5 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot5_x}-x_lat) + ABS(#{spot5_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items6 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot6_x}-x_lat) + ABS(#{spot6_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items7 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot7_x}-x_lat) + ABS(#{spot7_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items8 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL" ).order("(ABS(#{spot8_x}-x_lat) + ABS(#{spot8_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
     items_all = items0 + items1 + items2 + items3
     render :json => items_all
   end
