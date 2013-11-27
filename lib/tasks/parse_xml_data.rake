@@ -1,6 +1,8 @@
 # encoding: utf-8
 namespace :parse_xml_data do
 
+	# sale_estate => estate_group = 1, pre_sale_estate => estate_group = 2, rent_estate => estate_group = 3
+
 	task :parse_estate => :environment do
 		
 		root = Rails.root.to_s #make sure string
