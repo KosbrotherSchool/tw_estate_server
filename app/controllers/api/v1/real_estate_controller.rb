@@ -52,8 +52,8 @@ class Api::V1::RealEstateController < ApplicationController
       salePerSquareQueryString = "and buy_per_square_feet > #{min}"
     end
 
-    if salePerSquareMax_to_i != 0
-      max = salePerSquareMax_to_i * 10000
+    if salePerSquareMax.to_i != 0
+      max = salePerSquareMax.to_i * 10000
       salePerSquareQueryString = salePerSquareQueryString + "and buy_per_square_feet < #{max}"
     end
 
