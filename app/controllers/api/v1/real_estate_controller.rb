@@ -54,7 +54,7 @@ class Api::V1::RealEstateController < ApplicationController
 
     if salePerSquareMax.to_i != 0
       max = salePerSquareMax.to_i * 10000
-      salePerSquareQueryString = salePerSquareQueryString + "and buy_per_square_feet < #{max}"
+      salePerSquareQueryString = salePerSquareQueryString + " and buy_per_square_feet < #{max}"
     end
 
     saleTotalQueryString = ""
@@ -65,18 +65,18 @@ class Api::V1::RealEstateController < ApplicationController
 
     if saleTotalMax.to_i !=0
       max = saleTotalMax.to_i * 10000
-      saleTotalQueryString = saleTotalQueryString + "and buy_total_price < #{max}"
+      saleTotalQueryString = saleTotalQueryString + " and buy_total_price < #{max}"
     end
 
     saleAreaQueryString = ""
     if saleAreaMin.to_i != 0
       min = saleAreaMin.to_i 
-      saleAreaQueryString = "and building_exchange_are > #{min}"
+      saleAreaQueryString = "and building_exchange_area > #{min}"
     end
 
     if saleAreaMax.to_i != 0
       max = saleAreaMax.to_i
-      saleAreaQueryString = saleAreaQueryString + "and building_exchange_are < #{max}"
+      saleAreaQueryString = saleAreaQueryString + " and building_exchange_area < #{max}"
     end
 
     items0 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{center_x}-x_lat) + ABS(#{center_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
