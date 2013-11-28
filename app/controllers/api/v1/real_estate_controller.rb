@@ -24,6 +24,12 @@ class Api::V1::RealEstateController < ApplicationController
     isShowSale = params[:isShowSale]
     isShowRent = params[:isShowRent]
     isShowPreSale = params[:isShowPreSale]
+    salePerSquareMin = params[:salePerSquareMin]
+    salePerSquareMax = params[:salePerSquareMax]
+    saleTotalMin = params[:saleTotalMin]
+    saleTotalMax = params[:saleTotalMax]
+    saleAreaMin = params[:saleAreaMin]
+    saleAreaMax = params[:saleAreaMax]
 
     showSaleQueryString = ""
     if isShowSale == "false"
@@ -40,15 +46,48 @@ class Api::V1::RealEstateController < ApplicationController
       showPreSaleQueryString = "and estate_group != 2"
     end
 
-    items0 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString}" ).order("(ABS(#{center_x}-x_lat) + ABS(#{center_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
-    items1 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString}" ).order("(ABS(#{spot1_x}-x_lat) + ABS(#{spot1_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
-    items2 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString}" ).order("(ABS(#{spot2_x}-x_lat) + ABS(#{spot2_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
-    items3 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString}" ).order("(ABS(#{spot3_x}-x_lat) + ABS(#{spot3_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
-    items4 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString}" ).order("(ABS(#{spot4_x}-x_lat) + ABS(#{spot4_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
-    items5 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString}" ).order("(ABS(#{spot5_x}-x_lat) + ABS(#{spot5_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
-    items6 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString}" ).order("(ABS(#{spot6_x}-x_lat) + ABS(#{spot6_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
-    items7 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString}" ).order("(ABS(#{spot7_x}-x_lat) + ABS(#{spot7_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
-    items8 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString}" ).order("(ABS(#{spot8_x}-x_lat) + ABS(#{spot8_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    salePerSquareQueryString = ""
+    if salePerSquareMin.to_i != 0
+      min = salePerSquareMin.to_i * 10000
+      salePerSquareQueryString = "and buy_per_square_feet > #{min}"
+    end
+
+    if salePerSquareMax_to_i != 0
+      max = salePerSquareMax_to_i * 10000
+      salePerSquareQueryString = salePerSquareQueryString + "and buy_per_square_feet < #{max}"
+    end
+
+    saleTotalQueryString = ""
+    if saleTotalMin.to_i !=0
+      min = saleTotalMin.to_i * 10000
+      saleTotalQueryString = "and buy_total_price > #{min}"
+    end
+
+    if saleTotalMax.to_i !=0
+      max = saleTotalMax.to_i * 10000
+      saleTotalQueryString = saleTotalQueryString + "and buy_total_price < #{max}"
+    end
+
+    saleAreaQueryString = ""
+    if saleAreaMin.to_i != 0
+      min = saleAreaMin.to_i 
+      saleAreaQueryString = "and building_exchange_are > #{min}"
+    end
+
+    if saleAreaMax.to_i != 0
+      max = saleAreaMax.to_i
+      saleAreaQueryString = saleAreaQueryString + "and building_exchange_are < #{max}"
+    end
+
+    items0 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{center_x}-x_lat) + ABS(#{center_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items1 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{spot1_x}-x_lat) + ABS(#{spot1_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items2 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{spot2_x}-x_lat) + ABS(#{spot2_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items3 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{spot3_x}-x_lat) + ABS(#{spot3_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items4 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{spot4_x}-x_lat) + ABS(#{spot4_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items5 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{spot5_x}-x_lat) + ABS(#{spot5_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items6 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{spot6_x}-x_lat) + ABS(#{spot6_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items7 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{spot7_x}-x_lat) + ABS(#{spot7_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
+    items8 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString}" ).order("(ABS(#{spot8_x}-x_lat) + ABS(#{spot8_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
     items_all = items0 + items1 + items2 + items3 + items4 + items5 + items6 + items7 + items8
     render :json => items_all
   end
