@@ -79,18 +79,18 @@ class Api::V1::RealEstateController < ApplicationController
       saleAreaQueryString = saleAreaQueryString + " and building_exchange_area < #{max}"
     end
 
-    area_width = (spot1_x - spot2_x).abs / 2
+    area_width = (spot1_x - spot4_x).abs / 2
     area_height = (spot1_y - spot2_y).abs / 2
 
     border0 = "and x_lat > #{center_x - area_width} and x_lat < #{center_x + area_width} and y_long > #{center_y - area_height} and y_long < #{center_y + area_height}"
     border1 = "and x_lat > #{spot1_x - area_width} and x_lat < #{spot1_x + area_width} and y_long > #{spot1_y - area_height} and y_long < #{spot1_y + area_height}"
     border2 = "and x_lat > #{spot2_x - area_width} and x_lat < #{spot2_x + area_width} and y_long > #{spot2_y - area_height} and y_long < #{spot2_y + area_height}"
-    border2 = "and x_lat > #{spot3_x - area_width} and x_lat < #{spot3_x + area_width} and y_long > #{spot3_y - area_height} and y_long < #{spot3_y + area_height}"
-    border2 = "and x_lat > #{spot4_x - area_width} and x_lat < #{spot4_x + area_width} and y_long > #{spot4_y - area_height} and y_long < #{spot4_y + area_height}"
-    border2 = "and x_lat > #{spot5_x - area_width} and x_lat < #{spot5_x + area_width} and y_long > #{spot5_y - area_height} and y_long < #{spot5_y + area_height}"
-    border2 = "and x_lat > #{spot6_x - area_width} and x_lat < #{spot6_x + area_width} and y_long > #{spot6_y - area_height} and y_long < #{spot6_y + area_height}"
-    border2 = "and x_lat > #{spot7_x - area_width} and x_lat < #{spot7_x + area_width} and y_long > #{spot7_y - area_height} and y_long < #{spot7_y + area_height}"
-    border2 = "and x_lat > #{spot8_x - area_width} and x_lat < #{spot8_x + area_width} and y_long > #{spot8_y - area_height} and y_long < #{spot8_y + area_height}"
+    border3 = "and x_lat > #{spot3_x - area_width} and x_lat < #{spot3_x + area_width} and y_long > #{spot3_y - area_height} and y_long < #{spot3_y + area_height}"
+    border4 = "and x_lat > #{spot4_x - area_width} and x_lat < #{spot4_x + area_width} and y_long > #{spot4_y - area_height} and y_long < #{spot4_y + area_height}"
+    border5 = "and x_lat > #{spot5_x - area_width} and x_lat < #{spot5_x + area_width} and y_long > #{spot5_y - area_height} and y_long < #{spot5_y + area_height}"
+    border6 = "and x_lat > #{spot6_x - area_width} and x_lat < #{spot6_x + area_width} and y_long > #{spot6_y - area_height} and y_long < #{spot6_y + area_height}"
+    border7 = "and x_lat > #{spot7_x - area_width} and x_lat < #{spot7_x + area_width} and y_long > #{spot7_y - area_height} and y_long < #{spot7_y + area_height}"
+    border8 = "and x_lat > #{spot8_x - area_width} and x_lat < #{spot8_x + area_width} and y_long > #{spot8_y - area_height} and y_long < #{spot8_y + area_height}"
 
     items0 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString} #{border0}" ).order("(ABS(#{center_x}-x_lat) + ABS(#{center_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
     items1 = RealEstate.where("x_lat IS NOT NULL and y_long IS NOT NULL #{showSaleQueryString} #{showRentQueryString} #{showPreSaleQueryString} #{salePerSquareQueryString} #{saleTotalQueryString} #{saleAreaQueryString} #{border1}" ).order("(ABS(#{spot1_x}-x_lat) + ABS(#{spot1_y}-y_long)) ASC").paginate(:page => 1, :per_page => 5)
